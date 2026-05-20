@@ -95,11 +95,34 @@ struct AppOwnership
 	char PurchaseCountryCode[4];
 	uint32 TimeStamp;
 	uint32 TimeExpire;
-	int32 foo;
-	EGameIDType GameIDType;
-	int32 bar;
-	int32 baz;
+	bool bOwnsLicense;
+	bool bLicenseExpired;
+	bool bIsPermanent;
+	bool bLowViolence;
+	bool bFreeLicense;
+	bool bRegionRestricted;
+	bool bFromFreeWeekend;
+	bool bLicenseLocked;
+	bool bLicensePending;
+	bool bRetailLicense;
+	bool bAutoGrant;
+	bool bLicensePermanent;
+	bool bGuestPass;
+	bool bBorrowed;
+	bool bAnySiteLicense;
+	bool bAllSiteLicenses;
+	bool bAllActivationRequired;
+	bool bFamilyShared;
 
+	std::string DebugString() const {
+		return std::format("PackageId={} ReleaseState={} SteamId32={} MasterSubscriptionAppID={} TrialSeconds={} ExistInPackageNums={} \
+			CountryCode={} TimeStamp={} TimeExpire={} OwnsLicense={} LicenseExpired={} IsPermanent={} LowViolence={} \
+			FreeLicense={} RegionRestricted={} FromFreeWeekend={} LicenseLocked={} LicensePending={} RetailLicense={} \
+			AutoGrant={} LicensePermanent={} GuestPass={} Borrowed={} AnySiteLicense={} AllSiteLicenses={} AllActivationRequired={} FamilyShared={}",
+			PackageId, static_cast<int>(ReleaseState), SteamId32, MasterSubscriptionAppID, TrialSeconds, ExistInPackageNums, PurchaseCountryCode, TimeStamp, TimeExpire,
+			bOwnsLicense, bLicenseExpired, bIsPermanent, bLowViolence, bFreeLicense, bRegionRestricted, bFromFreeWeekend, bLicenseLocked, bLicensePending,
+			bRetailLicense, bAutoGrant, bLicensePermanent, bGuestPass, bBorrowed, bAnySiteLicense, bAllSiteLicenses, bAllActivationRequired, bFamilyShared);
+	}
 };
 
 struct CSteamApp{

@@ -26,6 +26,7 @@ namespace {
 
     HOOK_FUNC(CheckAppOwnership, bool, void* pObj, AppId_t appId, AppOwnership* pOwn) {
         bool result = oCheckAppOwnership(pObj, appId, pOwn);
+        // LOG_PACKAGE_TRACE("CheckAppOwnership: AppId={} result={} {}", appId, result, pOwn->DebugString());
         if (LuaConfig::HasDepot(appId)) {
             if (result && pOwn->ExistInPackageNums > 1) {
                 // Actually owned — record so HasDepot excludes it going forward
@@ -33,7 +34,8 @@ namespace {
             } else {
                 pOwn->PackageId    = 0;
                 pOwn->ReleaseState = EAppReleaseState::Released;
-                pOwn->GameIDType   = EGameIDType::k_EGameIDTypeApp;
+                // Setting this free flag to false will hide it from the library UI.
+                pOwn->bFreeLicense = false;
                 return true;
             }
         }

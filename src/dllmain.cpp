@@ -44,8 +44,7 @@ static void DetectSteamBuildId() {
     auto fn = reinterpret_cast<GetBootstrapperVersion_t>(
         GetProcAddress(hSteam, "GetBootstrapperVersion"));
     if (!fn) {
-        LOG_WARN("SteamVersion: steam.exe!GetBootstrapperVersion not exported; "
-                 "ByteSearch will fall back to try-all order");
+        LOG_WARN("SteamVersion: steam.exe!GetBootstrapperVersion not exported");
         return;
     }
     g_steamBuildId = std::to_string(fn());
